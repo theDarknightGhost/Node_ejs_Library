@@ -6,6 +6,8 @@ const router = require('./routes/myRoots')
 const cors = require('cors')
 const helmet = require('helmet')
 const Connect = require('./db/Connect')
+const bodyparser = require('body-parser')
+const authorsRouter = require('./routes/authors')
 app.use(cors())
 app.use(helmet())
 app.use(express.json())
@@ -14,10 +16,10 @@ app.set('views', __dirname + '/views')
 app.set('layout' ,'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
-
+app.use(bodyparser.urlencoded({urlencoded:true}))
 
 app.use('/',router)
-
+app.use('/authors',authorsRouter)
 
 const port = process.env.PORT || 3000
 const start=()=>{
